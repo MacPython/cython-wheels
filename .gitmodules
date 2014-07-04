@@ -1,0 +1,9 @@
+[submodule "terryfy"]
+	path = terryfy
+	url = git://github.com/matthew-brett/terryfy.git
+[submodule "scikit-image"]
+	path = scikit-image
+	url = git://github.com/scikit-image/scikit-image.git
+[submodule "Cython"]
+	path = Cython
+	url = git://github.com/Cython/Cython.git

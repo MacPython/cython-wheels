@@ -1,0 +1,36 @@
+language:
+- objective-c
+env:
+  global: LATEST_TAG=1
+  matrix:
+  - VERSION=2.7.8
+  - VERSION=3.3.5
+  - VERSION=3.4.1
+install:
+- source terryfy/travis_tools.sh
+- get_python_environment macpython $VERSION venv
+- pip install wheel
+- cd Cython
+- if [ -n "$LATEST_TAG" ]; then
+  git fetch ;
+  git fetch --tags ;
+  git checkout `../terryfy/git-closest-tag` ;
+  fi
+- python setup.py bdist_wheel
+- rename_wheels dist
+- pip install dist/*.whl
+- cd ..
+script:
+- cd Cython
+- cython Demos/*.pyx
+- require_success "Cythonizing may have failed"
+- cd ..
+before_deploy: cd Cython/dist
+deploy:
+  provider: cloudfiles
+  username: travis-worker
+  api_key:
+    secure: UUmgPJxMIvdn5ByWI8PQFiT9Nge5/p1iP0ZNfpcG10/aKhYJzh4lwlsLfmTOepm8AwxM5dnJ5kcE5CTzShTBilyygxmo9cRe9ngiFN7SUmBSC+NUxd+OdTbTuCtuv5wwSg4m8ppzmvsp14FdSpb1Ax0A7et0XoRiEV1MlwDFqcQ=
+  region: ORD
+  container: wheels
+  skip_cleanup: true
