@@ -10,12 +10,8 @@ install:
 - source terryfy/travis_tools.sh
 - get_python_environment macpython $VERSION venv
 - pip install wheel
+- if [ -n "$LATEST_TAG" ]; then checkout_closest_tag Cython; fi
 - cd Cython
-- if [ -n "$LATEST_TAG" ]; then
-  git fetch ;
-  git fetch --tags ;
-  git checkout `../terryfy/git-closest-tag origin/master` ;
-  fi
 - python setup.py bdist_wheel
 - rename_wheels dist
 - pip install dist/*.whl
