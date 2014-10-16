@@ -19,6 +19,7 @@ install:
 script:
 - cd Cython
 - cython Demos/*.pyx
+- echo $?
 - require_success "Cythonizing may have failed"
 - cd ..
 before_deploy: cd Cython/dist
