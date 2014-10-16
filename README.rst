@@ -9,7 +9,7 @@ repo. If you want to build a specific version, unset ``LATEST_TAG`` in the
 ``.travis.yml`` file, and update the Cython submodule to the version you
 want to build.
 
-To update:
+To update to a particular version to build rather than the latest tag:
 
 * Update Cython submodule with version you want to build:
 
