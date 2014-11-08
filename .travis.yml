@@ -4,16 +4,17 @@ env:
   global: LATEST_TAG=1
   matrix:
   - VERSION=2.7.8
+  - VERSION=3.2.5
   - VERSION=3.3.5
   - VERSION=3.4.1
 install:
 - source terryfy/travis_tools.sh
 - get_python_environment macpython $VERSION venv
-- pip install wheel
+- pip install delocate
 - if [ -n "$LATEST_TAG" ]; then checkout_closest_tag Cython; fi
 - cd Cython
 - python setup.py bdist_wheel
-- rename_wheels dist
+- delocate-addplat --rm-orig -x 10_9 -x 10_10 dist/*.whl
 - pip install dist/*.whl
 - cd ..
 script:
