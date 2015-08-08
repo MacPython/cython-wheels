@@ -3,7 +3,7 @@ language:
 env:
   global:
   - BUILD_COMMIT=latest-tag
-  - PROJECT=cython
+  - REPO_DIR=cython
   matrix:
   - VERSION=2.7.10
   - VERSION=3.2.5
@@ -14,18 +14,18 @@ install:
 - get_python_environment macpython $VERSION venv
 - pip install delocate
 - if [ -n "$BUILD_COMMIT" ]; then
-      checkout_commit $PROJECT $BUILD_COMMIT;
+      checkout_commit $REPO_DIR $BUILD_COMMIT;
   fi
-- cd $PROJECT
+- cd $REPO_DIR
 - python setup.py bdist_wheel
 - delocate-addplat --rm-orig -x 10_9 -x 10_10 dist/*.whl
 - pip install dist/*.whl
 - cd ..
 script:
-- cd $PROJECT
+- cd $REPO_DIR
 - cython Demos/*.pyx
 - cd ..
-before_deploy: cd $PROJECT/dist
+before_deploy: cd $REPO_DIR/dist
 deploy:
   provider: cloudfiles
   username: travis-worker
