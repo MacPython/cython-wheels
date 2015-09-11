@@ -25,10 +25,7 @@ script:
 - cd $REPO_DIR
 - cython Demos/*.pyx
 - cd ..
-before_deploy:
-- cd $REPO_DIR/dist
-# Fix for https://github.com/travis-ci/travis-ci/issues/4635
-- rvm 1.9.3 do gem install net-ssh -v 2.9.2
+before_deploy: cd $REPO_DIR/dist
 deploy:
   provider: cloudfiles
   username: travis-worker
