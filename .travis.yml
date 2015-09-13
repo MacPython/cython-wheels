@@ -12,6 +12,8 @@ env:
   - VERSION=3.5.0
 install:
 - source terryfy/travis_tools.sh
+- export CC=clang
+- export CXX=clang++
 - get_python_environment macpython $VERSION venv
 - pip install delocate
 - if [ -n "$BUILD_COMMIT" ]; then
