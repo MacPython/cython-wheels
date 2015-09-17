@@ -15,8 +15,6 @@ install:
 - export CC=clang
 - export CXX=clang++
 - get_python_environment macpython $VERSION venv
-# Install patched version of wheel (patched for 3.5)
-- pip install --ignore-installed --no-index -f https://nipy.bic.berkeley.edu/scipy_installers wheel
 - pip install delocate
 - if [ -n "$BUILD_COMMIT" ]; then
       checkout_commit $REPO_DIR $BUILD_COMMIT;
