@@ -5,10 +5,10 @@ env:
   - BUILD_COMMIT=latest-tag
   - REPO_DIR=cython
   matrix:
-  - VERSION=2.7.10
-  - VERSION=3.2.5
-  - VERSION=3.3.5
-  - VERSION=3.4.3
+# - VERSION=2.7.10
+# - VERSION=3.2.5
+# - VERSION=3.3.5
+# - VERSION=3.4.3
   - VERSION=3.5.0
 install:
 - source terryfy/travis_tools.sh
@@ -20,6 +20,8 @@ install:
       checkout_commit $REPO_DIR $BUILD_COMMIT;
   fi
 - cd $REPO_DIR
+- pip freeze
+- which python
 - python setup.py bdist_wheel
 - delocate-addplat --rm-orig -x 10_9 -x 10_10 dist/*.whl
 - pip install dist/*.whl
