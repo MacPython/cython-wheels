@@ -25,8 +25,6 @@ install:
 - delocate-addplat --rm-orig -x 10_9 -x 10_10 dist/*.whl
 - pip install dist/*.whl
 script:
-# Run tests in repo directory
-- python runtests.py
 # Build demos outside repo directory
 - cd ..
 - 'cython $REPO_DIR/Demos/*.pyx'
