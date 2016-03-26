@@ -2,7 +2,8 @@ language:
 - objective-c
 env:
   global:
-  - BUILD_COMMIT=latest-tag
+  #- BUILD_COMMIT=latest-tag
+  - BUILD_COMMIT=0.23.5
   - REPO_DIR=cython
   matrix:
   - VERSION=2.7.11
