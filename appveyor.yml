@@ -73,7 +73,7 @@ build_script:
 
 test_script:
   # Run some tests
-  - for %X in (Demos\*.pyx) do cython %X
+  - ps: get-childitem Demos\*.pyx | foreach-object { cython $_ }
 
 after_test:
   # If tests are successful, create binary packages for the project.
