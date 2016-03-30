@@ -73,7 +73,7 @@ build_script:
 
 test_script:
   # Run some tests
-  - cython Demos\*.pyx
+  - for %X in (Demos\*.pyx) do cython %X
 
 after_test:
   # If tests are successful, create binary packages for the project.
