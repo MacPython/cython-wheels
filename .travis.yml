@@ -1,40 +1,89 @@
-# To change the built commit, update the cython submodule
-language:
-- objective-c
-env:
+#env:
   global:
-  - REPO_DIR=cython
-  matrix:
-  - VERSION=2.7.11
-  - VERSION=3.3.5
-  - VERSION=3.4.3
-  - VERSION=3.5.1
+      - REPO_DIR=cython
+      - BUILD_COMMIT=0.24
+      - PLAT=x86_64
+      - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+      - BUILD_DEPENDS=
+      - TEST_DEPENDS=
+      # Following generated with
+      # travis encrypt -r MacPython/cython-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
+      - secure:
+          "k+rFEWlbje6cBTf9dEvtdTqJ66wgVMTcpy6rSZdHa0A6d21pIyuuKscp/fr++rF9x0DOzXLuuB2g4Wy4HaehGIZYYFrMpW1t8JlQKa6HG8a42AUV2uWPxfVDKdv1tqaJj75Ey+rBy5/gsPIaIIQtpbmwUM/HqzHscxCvpDEE5MU="
+
+language: python
+sudo: required
+dist: trusty
+services: docker
+
+matrix:
+  include:
+    - os: linux
+      python: 2.6
+    - os: linux
+      python: 2.6
+      env:
+        - PLAT=i686
+    - os: linux
+      python: 2.7
+    - os: linux
+      python: 2.7
+      env:
+        - UNICODE_WIDTH=16
+    - os: linux
+      python: 2.7
+      env:
+        - PLAT=i686
+    - os: linux
+      python: 2.7
+      env:
+        - PLAT=i686
+        - UNICODE_WIDTH=16
+    - os: linux
+      python: 3.3
+      env:
+        - PLAT=i686
+    - os: linux
+      python: 3.4
+    - os: linux
+      python: 3.4
+      env:
+        - PLAT=i686
+    - os: linux
+      python: 3.5
+    - os: linux
+      python: 3.5
+      env:
+        - PLAT=i686
+    - os: osx
+      language: objective-c
+      env: TRAVIS_PYTHON_VERSION=2.7
+    - os: osx
+      language: objective-c
+      env:
+        - TRAVIS_PYTHON_VERSION=3.4
+    - os: osx
+      language: objective-c
+      env:
+        - TRAVIS_PYTHON_VERSION=3.5
+
+before_install:
+    - source multibuild/common_utils.sh
+    - source multibuild/travis_steps.sh
+    - before_install
+
 install:
-- source terryfy/travis_tools.sh
-- export CC=clang
-- export CXX=clang++
-- get_python_environment macpython $VERSION venv
-# Update to latest wheel package for Python 3.5
-- pip install -U wheel
-- pip install delocate
-- if [ -n "$BUILD_COMMIT" ]; then
-      checkout_commit $REPO_DIR $BUILD_COMMIT;
-  fi
-- cd $REPO_DIR
-- python setup.py bdist_wheel
-- delocate-addplat --rm-orig -x 10_9 -x 10_10 dist/*.whl
-- pip install dist/*.whl
+    # Maybe get and clean and patch source
+    - clean_code $REPO_DIR $BUILD_COMMIT
+    - build_wheel $REPO_DIR $PLAT
+
 script:
-# Build demos outside repo directory
-- cd ..
-- 'cython $REPO_DIR/Demos/*.pyx'
-before_deploy:
-- cd $REPO_DIR/dist
-deploy:
-  provider: cloudfiles
-  username: travis-worker
-  api_key:
-    secure: TX5368tmsJJsaAcizN4bn5HA/HQA5OlogfhRGTHDNOHfiCZAjhl78R1oyX7Kle3adBCv5QC305m+GaJUgIMkl+VlPdEuQhvFpShmXqOX6BMByWVojqj8qahLG/TkwUK+njFlNHST3qnRWhCaEVxAju5Sp/pg3IgaAl0GSfCWntE=
-  region: ORD
-  container: wheels
-  skip_cleanup: true
+    - install_run $PLAT
+
+after_success:
+    # Upload wheels to Rackspace container
+    - pip install wheelhouse-uploader
+    - python -m wheelhouse_uploader upload --local-folder
+          ${TRAVIS_BUILD_DIR}/wheelhouse/
+          --no-update-index
+          wheels

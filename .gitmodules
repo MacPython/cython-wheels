@@ -1,6 +1,6 @@
-[submodule "terryfy"]
-	path = terryfy
-	url = git://github.com/MacPython/terryfy.git
 [submodule "Cython"]
 	path = Cython
 	url = git://github.com/Cython/Cython.git
+[submodule "multibuild"]
+	path = multibuild
+	url = https://github.com/matthew-brett/multibuild.git
