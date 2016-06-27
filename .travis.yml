@@ -19,10 +19,14 @@ services: docker
 matrix:
   include:
     - os: linux
-      python: 2.6
+      python: 2.7
+      # Change Python version for build / test
+      env: TRAVIS_PYTHON_VERSION=2.6
     - os: linux
-      python: 2.6
+      python: 2.7
       env:
+      # Change Python version for build / test
+        - TRAVIS_PYTHON_VERSION=2.6
         - PLAT=i686
     - os: linux
       python: 2.7
@@ -82,8 +86,8 @@ script:
 
 after_success:
     # Upload wheels to Rackspace container
-    - pip2.7 install wheelhouse-uploader
-    - python2.7 -m wheelhouse_uploader upload --local-folder
+    - pip install wheelhouse-uploader
+    - python -m wheelhouse_uploader upload --local-folder
           ${TRAVIS_BUILD_DIR}/wheelhouse/
           --no-update-index
           wheels
