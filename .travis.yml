@@ -1,6 +1,6 @@
 env:
   global:
-      - REPO_DIR=cython
+      - REPO_DIR=Cython
       - BUILD_COMMIT=0.24
       - PLAT=x86_64
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
