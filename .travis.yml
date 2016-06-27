@@ -1,4 +1,4 @@
-#env:
+env:
   global:
       - REPO_DIR=cython
       - BUILD_COMMIT=0.24
