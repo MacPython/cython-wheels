@@ -3,13 +3,14 @@
 # Largely from:
 # https://github.com/ogrisel/python-appveyor-demo/blob/master/appveyor.yml
 #
-# Builds current version in submodule
-# To chose version to build, update submodule
+# Builds version specified in BUILD_COMMIT variable
+# To chose version to build, edit value of BUILD_COMMIT
 
 os: Visual Studio 2015
 
 environment:
     global:
+      BUILD_COMMIT: 0.24
       WHEELHOUSE_UPLOADER_USERNAME: travis-worker
       WHEELHOUSE_UPLOADER_SECRET:
         secure:
@@ -66,6 +67,8 @@ install:
 build_script:
   # Build and install the wheel
   - cd cython
+  - git fetch origin
+  - git checkout %BUILD_COMMIT%
   - python setup.py bdist_wheel
   - cd dist
   - pip install --pre --no-index -f . cython
@@ -88,4 +91,6 @@ on_success:
   # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
   # disable the ssl checks.
   - pip install wheelhouse-uploader
-  - python -m wheelhouse_uploader upload --no-ssl-check --local-folder=dist win-atlas-wheels
+  - python -m wheelhouse_uploader upload
+    --no-ssl-check --local-folder=dist --no-update-index
+    wheels
