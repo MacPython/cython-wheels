@@ -10,7 +10,8 @@ os: Visual Studio 2015
 
 environment:
     global:
-      BUILD_COMMIT: 0.24
+      # Remember to edit .travis.yml too
+      BUILD_COMMIT: 0.24.1
       WHEELHOUSE_UPLOADER_USERNAME: travis-worker
       WHEELHOUSE_UPLOADER_SECRET:
         secure:
