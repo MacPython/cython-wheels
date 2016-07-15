@@ -1,7 +1,7 @@
 env:
   global:
       - REPO_DIR=Cython
-      - BUILD_COMMIT=0.24
+      - BUILD_COMMIT=0.24.1
       - PLAT=x86_64
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       - BUILD_DEPENDS=
