@@ -70,6 +70,8 @@ build_script:
   - cd cython
   - git fetch origin
   - git checkout %BUILD_COMMIT%
+  # Remove Bazel file that interferes with distutils
+  - del BUILD
   - python setup.py bdist_wheel
   - cd dist
   - pip install --pre --no-index -f . cython
