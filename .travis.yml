@@ -1,3 +1,10 @@
+language: python
+python: 3.5
+sudo: required
+dist: trusty
+services: docker
+osx_image: xcode6.1
+
 env:
   global:
       - REPO_DIR=Cython
@@ -11,13 +18,6 @@ env:
       # travis encrypt -r MacPython/cython-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure:
           "k+rFEWlbje6cBTf9dEvtdTqJ66wgVMTcpy6rSZdHa0A6d21pIyuuKscp/fr++rF9x0DOzXLuuB2g4Wy4HaehGIZYYFrMpW1t8JlQKa6HG8a42AUV2uWPxfVDKdv1tqaJj75Ey+rBy5/gsPIaIIQtpbmwUM/HqzHscxCvpDEE5MU="
-
-language: python
-python: 3.5
-sudo: required
-dist: trusty
-services: docker
-osx_image: xcode6.1
 
 matrix:
   exclude:
