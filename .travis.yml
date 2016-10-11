@@ -3,7 +3,7 @@ python: 3.5
 sudo: required
 dist: trusty
 services: docker
-osx_image: beta-xcode6.2
+osx_image: beta-xcode6.1
 
 env:
   global:
