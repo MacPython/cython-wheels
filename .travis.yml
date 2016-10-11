@@ -17,6 +17,7 @@ python: 3.5
 sudo: required
 dist: trusty
 services: docker
+osx_image: xcode6.1
 
 matrix:
   exclude:
