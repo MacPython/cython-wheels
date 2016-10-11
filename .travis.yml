@@ -92,8 +92,6 @@ before_install:
 install:
     # Maybe get and clean and patch source
     - clean_code $REPO_DIR $BUILD_COMMIT
-    # Remove Bazel file that interferes with distutils
-    - rm $REPO_DIR/BUILD
     - build_wheel $REPO_DIR $PLAT
 
 script:
