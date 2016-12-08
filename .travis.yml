@@ -9,7 +9,7 @@ env:
   global:
       - REPO_DIR=Cython
       # Remember to edit appveyor.yml too
-      - BUILD_COMMIT=0.25.1
+      - BUILD_COMMIT=0.25.2
       - PLAT=x86_64
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       - BUILD_DEPENDS=
