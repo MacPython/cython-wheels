@@ -9,6 +9,7 @@ env:
   global:
       - REPO_DIR=Cython
       # Remember to edit appveyor.yml too
+      # Also see DAILY_COMMIT below
       - BUILD_COMMIT=0.26
       - PLAT=x86_64
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
@@ -18,6 +19,8 @@ env:
       # travis encrypt -r MacPython/cython-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure:
           "k+rFEWlbje6cBTf9dEvtdTqJ66wgVMTcpy6rSZdHa0A6d21pIyuuKscp/fr++rF9x0DOzXLuuB2g4Wy4HaehGIZYYFrMpW1t8JlQKa6HG8a42AUV2uWPxfVDKdv1tqaJj75Ey+rBy5/gsPIaIIQtpbmwUM/HqzHscxCvpDEE5MU="
+      # Commit when running from daily branch
+      - DAILY_COMMIT=master
 
 matrix:
   exclude:
@@ -97,6 +100,13 @@ matrix:
         - MB_PYTHON_VERSION=3.6
 
 before_install:
+    - if [ "$TRAVIS_BRANCH" == "daily" ]; then
+          CONTAINER="pre-release";
+          BUILD_COMMIT=${DAILY_COMMIT:-$BUILD_COMMIT};
+      else
+          CONTAINER=wheels;
+          UPLOAD_ARGS="--no-update-index";
+      fi
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
@@ -114,5 +124,5 @@ after_success:
     - pip install wheelhouse-uploader
     - python -m wheelhouse_uploader upload --local-folder
           ${TRAVIS_BUILD_DIR}/wheelhouse/
-          --no-update-index
-          wheels
+          $UPLOAD_ARGS
+          $CONTAINER
