@@ -3,11 +3,11 @@
 
 Usage:
 
-    python add_build.py <build_tag> <whl_fname> [<whl_fname> ...]
+    python add_build_no.py <build_tag> <whl_fname> [<whl_fname> ...]
 
 E.g.
 
-    python add_build.py 1 h5py-2.6.0-*whl
+    python add_build_no.py 1 h5py-2.6.0-*whl
 
 This will give you output like so::
 
@@ -22,8 +22,7 @@ This will give you output like so::
 """
 from __future__ import print_function
 
-__version__ = 0.1
-
+import os
 from os.path import split as psplit, join as pjoin
 from shutil import copyfile
 import argparse
@@ -36,6 +35,9 @@ def make_parser():
                         type=str,
                         default='-',
                         help='Suffix for build number')
+    parser.add_argument('-r', '--rename',
+                        action='store_true',
+                        help='If set, remove original wheel')
     parser.add_argument('build_tag', help="Build tag")
     parser.add_argument('files', nargs="*", help="Input files")
     return parser
@@ -52,8 +54,11 @@ def main():
         out_fname = ('{name}-{ver}{build_suffix}{build}-{pyver}-{abi}-{plat}'
                      '.whl'.format(**parsed))
         out_path = pjoin(path, out_fname)
-        print('Copying {} to {}'.format(wheel_fname, out_path))
+        print('{} {} to {}'.format(
+            'Renaming' if args.rename else 'Copying', wheel_fname, out_path))
         copyfile(wheel_fname, out_path)
+        if args.rename:
+            os.unlink(wheel_fname)
 
 
 if __name__ == '__main__':
