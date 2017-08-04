@@ -115,6 +115,10 @@ install:
     # Maybe get and clean and patch source
     - clean_code $REPO_DIR $BUILD_COMMIT
     - build_wheel $REPO_DIR $PLAT
+    # Add Travis build number to wheel name for daily builds
+    - if [ "$TRAVIS_BRANCH" == "daily" ]; then
+          python add_build_no.py $TRAVIS_BUILD_NUMBER $WHEEL_SDIR/*.whl;
+      fi
 
 script:
     - install_run $PLAT
