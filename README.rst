@@ -92,14 +92,10 @@ be something like::
 
     VERSION=0.24.2
     CDN_URL=https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43.ssl.cf2.rackcdn.com
-    wheel-uploader -r warehouse -u $CDN_URL -s -v -w ~/wheelhouse -t macosx Cython $VERSION
-    wheel-uploader -r warehouse -u $CDN_URL -s -v -w ~/wheelhouse -t manylinux1 Cython $VERSION
-    wheel-uploader -r warehouse -u $CDN_URL -s -v -w ~/wheelhouse -t win Cython $VERSION
+    wheel-uploader -u $CDN_URL -s -v -w ~/wheelhouse -t all Cython $VERSION
 
 where:
 
-* ``-r warehouse`` uses the upcoming Warehouse PyPI server (it is more
-  reliable than the current PyPI service for uploads);
 * ``-u`` gives the URL from which to fetch the wheels, here the https address,
   for some extra security;
 * ``-s`` causes twine to sign the wheels with your GPG key;
@@ -107,29 +103,12 @@ where:
 * ``-w ~/wheelhouse`` means download the wheels from to the local directory
   ``~/wheelhouse``.
 
-``cython`` is the root name of the wheel(s) to download / upload, and ``0.23``
-is the version to download / upload.
-
-In order to use the Warehouse PyPI server, you will need something like this
-in your ``~/.pypirc`` file::
-
-    [distutils]
-    index-servers =
-        pypi
-        warehouse
-
-    [pypi]
-    username:your_user_name
-    password:your_password
-
-    [warehouse]
-    repository: https://upload.pypi.io/legacy/
-    username: your_user_name
-    password: your_password
+``cython`` is the root name of the wheel(s) to download / upload, and
+``0.24.2`` is the version to download / upload.
 
 So, in this case, ``wheel-uploader`` will download all wheels starting with
-``Cython-0.23-`` from http://wheels.scipy.org to ``~/wheelhouse``, then upload
-them to PyPI.
+``Cython-0.24.2-`` from http://wheels.scipy.org to ``~/wheelhouse``, then
+upload them to PyPI.
 
 Of course, you will need permissions to upload to PyPI, for this to work.
 
