@@ -1,2 +1,3 @@
 *.pyc
 tmp_for_test/
+wheelhouse/
