@@ -14,6 +14,25 @@ https://ci.appveyor.com/project/matthew-brett/cython-wheels
 The driving github repository is
 https://github.com/MacPython/cython-wheels
 
+Quickstart
+==========
+
+For building Cython version 0.26.2::
+
+    python trigger_build.py 0.26.2
+
+Then wait for the builds to finish.  Check:
+
+* https://travis-ci.org/MacPython/cython-wheels
+* https://ci.appveyor.com/project/matthew-brett/cython-wheels
+* The Rackspace container where the wheels go:
+  https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43.ssl.cf2.rackcdn.com
+
+When they are all done::
+
+    pip install beautifulsoup4 twine
+    python upload_wheels.py 0.26.2
+
 How it works
 ============
 
