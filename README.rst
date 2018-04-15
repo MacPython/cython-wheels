@@ -44,8 +44,9 @@ The wheel-building repository:
   (Manylinux1_).  ``delocate`` and ``auditwheel`` copy the required dynamic
   libraries into the wheel and relinks the extension modules against the
   copied libraries;
-* uploads the built wheels to http://wheels.scipy.org (a Rackspace container
-  kindly donated by Rackspace to scikit-learn).
+* uploads the built wheels to a Rackspace container - see "Using the
+  repository" above.  The containers were kindly donated by Rackspace to
+  scikit-learn).
 
 The resulting wheels are therefore self-contained and do not need any external
 dynamic libraries apart from those provided as standard by OSX / Linux as
@@ -55,7 +56,7 @@ The ``.travis.yml`` file in this repository has a line containing the API key
 for the Rackspace container encrypted with an RSA key that is unique to the
 repository - see http://docs.travis-ci.com/user/encryption-keys.  This
 encrypted key gives the travis build permission to upload to the Rackspace
-directory pointed to by http://wheels.scipy.org.
+containers we use to house the uploads.
 
 Triggering a build
 ==================
@@ -86,19 +87,18 @@ The ``cython-wheels`` repository will build the commit specified in the
 This can be any naming of a commit, including branch name, tag name or commit
 hash.
 
-Uploading the built wheels to pypi
+Uploading the built wheels to PyPI
 ==================================
 
-Be careful, http://wheels.scipy.org points to a container on a distributed
-content delivery network.  It can take up to 15 minutes for the new wheel file
-to get updated into the container at http://wheels.scipy.org.
+* release container visible at
+  https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43.ssl.cf2.rackcdn.com
 
-The same contents appear at
-https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43.ssl.cf2.rackcdn.com;
-you might prefer this address because it is https.
+Be careful, this link points to a container on a distributed content delivery
+network.  It can take up to 15 minutes for the new wheel file to get updated
+into the containers at the links above.
 
 When the wheels are updated, you can download them to your machine manually,
-and then upload them manually to pypi, or by using twine_.  You can also use a
+and then upload them manually to PyPI, or by using twine_.  You can also use a
 script for doing this, housed at :
 https://github.com/MacPython/terryfy/blob/master/wheel-uploader
 
