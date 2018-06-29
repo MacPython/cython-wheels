@@ -126,8 +126,9 @@ after_success:
         deactivate
         curl -LO https://bootstrap.pypa.io/get-pip.py
         sudo python get-pip.py
+        WH_PIP_OPTS="--user"
       fi
-    - pip install wheelhouse-uploader
+    - pip install $WH_PIP_OPTS wheelhouse-uploader
     - python -m wheelhouse_uploader upload --local-folder
           ${TRAVIS_BUILD_DIR}/wheelhouse/
           $UPLOAD_ARGS
