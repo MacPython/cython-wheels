@@ -51,6 +51,16 @@ environment:
       PYTHON_VERSION: "3.6.x" # currently 3.6.0
       PYTHON_ARCH: "64"
 
+init:
+  - ps: >-
+      if ($env:APPVEYOR_REPO_BRANCH -eq "daily") {
+        $env:CONTAINER = "pre-release"
+        if ($env:DAILY_COMMIT) { $env:BUILD_COMMIT = $env:DAILY_COMMIT }
+      } else {
+        $env:CONTAINER = "wheels"
+        $env:UPLOAD_ARGS = "--no-update-index"
+      }
+
 install:
   - cmd: echo "Using cmd"
 
@@ -101,9 +111,8 @@ artifacts:
 
 on_success:
   # Upload the generated wheel package to Rackspace
-  # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
-  # disable the ssl checks.
-  - pip install wheelhouse-uploader
+  - pip install wheelhouse-uploader certifi
   - python -m wheelhouse_uploader upload
-    --no-ssl-check --local-folder=dist --no-update-index
-    wheels
+    --local-folder=dist
+    %UPLOAD_ARGS%
+    %CONTAINER%
