@@ -27,7 +27,6 @@ environment:
       PYTHON_VERSION: 3.7
       PYTHON_ARCH: 64
 
-
     - PYTHON: "C:\\Python27"
       PYTHON_VERSION: "2.7.x" # currently 2.7.11
       PYTHON_ARCH: "32"
@@ -103,9 +102,12 @@ build_script:
   # Remove Bazel file that interferes with distutils
   - del BUILD
   - python setup.py bdist_wheel
-  - cd dist
-  - pip install --pre --no-index -f . cython
-  - cd ..
+  - ps: |
+      # Upload artifact to Appveyor immediately after build
+      ls dist -r | Foreach-Object {
+          appveyor PushArtifact $_.FullName
+      }
+  - pip install --pre --no-index -f .\dist cython
 
 test_script:
   # Run some tests
