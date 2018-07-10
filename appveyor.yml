@@ -62,6 +62,12 @@ environment:
 install:
   - cmd: echo "Using cmd"
 
+  # Get needed submodules
+  - git submodule update --init
+
+  # Install new Python if necessary
+  - ps: .\multibuild\install_python.ps1
+
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
@@ -79,7 +85,6 @@ install:
   - python -m pip install --upgrade pip
   # Pin wheel to 0.26 to avoid Windows ABI tag for built wheel
   - pip install wheel==0.26
-  - git submodule update --init
 
 build_script:
   # Build and install the wheel
