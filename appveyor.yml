@@ -94,9 +94,12 @@ build_script:
   # Remove Bazel file that interferes with distutils
   - del BUILD
   - python setup.py bdist_wheel
-  - cd dist
-  - pip install --pre --no-index -f . cython
-  - cd ..
+  - ps: |
+      # Upload artifact to Appveyor immediately after build
+      ls dist -r | Foreach-Object {
+          appveyor PushArtifact $_.FullName
+      }
+  - pip install --pre --no-index -f .\dist cython
 
 test_script:
   # Run some tests
@@ -108,15 +111,11 @@ after_test:
   # If tests are successful, create binary packages for the project.
   - dir dist
 
-artifacts:
-  # Archive the generated packages in the ci.appveyor.com build report.
-  - path: dist\*
-
 on_success:
   # Upload the generated wheel package to Rackspace
   # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
   # disable the ssl checks.
   - pip install wheelhouse-uploader
   - python -m wheelhouse_uploader upload
-    --no-ssl-check --local-folder=dist --no-update-index
+    --local-folder=dist --no-update-index
     wheels
