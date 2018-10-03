@@ -27,7 +27,11 @@ from os.path import split as psplit, join as pjoin
 from shutil import copyfile
 import argparse
 
-from wheel.install import WheelFile
+try:
+    from wheel.install import WHEEL_INFO_RE as wheel_matcher
+except ImportError:  # As of Wheel 0.32.0
+    from wheel.wheelfile import WHEEL_INFO_RE
+    wheel_matcher = WHEEL_INFO_RE.match
 
 def make_parser():
     parser = argparse.ArgumentParser()
@@ -47,8 +51,7 @@ def main():
     args = make_parser().parse_args()
     for wheel_fname in args.files:
         path, fname = psplit(wheel_fname)
-        wf = WheelFile(fname)
-        parsed = wf.parsed_filename.groupdict()
+        parsed = wheel_matcher(fname).groupdict()
         parsed['build'] = args.build_tag
         parsed['build_suffix'] = args.build_suffix
         out_fname = ('{name}-{ver}{build_suffix}{build}-{pyver}-{abi}-{plat}'
