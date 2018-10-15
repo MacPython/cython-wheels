@@ -82,9 +82,9 @@ install:
   - python --version
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
-  - python -m pip install --upgrade pip
+  - python -m pip install --upgrade pip setuptools
   # Pin wheel to 0.26 to avoid Windows ABI tag for built wheel
-  - pip install wheel==0.26
+  - pip install wheel  # ==0.26
 
 build_script:
   # Build and install the wheel
