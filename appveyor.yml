@@ -104,6 +104,7 @@ build_script:
 test_script:
   # Run some tests
   - ps: get-childitem Demos\*.pyx | foreach-object { cython $_ }
+  - "%PYTHON%\\Scripts\\pip.exe install -r test-requirements.txt"
   - set CFLAGS="/Od"
   - "%WITH_ENV% %PYTHON%\\python.exe runtests.py -vv --no-cpp -j8"
 
