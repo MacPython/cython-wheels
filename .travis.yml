@@ -9,6 +9,7 @@ env:
       # Also see DAILY_COMMIT below
       - BUILD_COMMIT=0.29.15
       - PLAT=x86_64
+      - MB_PYTHON_OSX_VER=10.9
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       - BUILD_DEPENDS=
       - TEST_DEPENDS=
