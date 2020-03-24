@@ -7,7 +7,7 @@ env:
       - REPO_DIR=Cython
       # Remember to edit appveyor.yml too
       # Also see DAILY_COMMIT below
-      - BUILD_COMMIT=0.29.16
+      - BUILD_COMMIT=c8425604fc3e4ea846016689942fa98e886b5f4f
       - PLAT=x86_64
       - MB_PYTHON_OSX_VER=10.9
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
@@ -21,9 +21,6 @@ env:
       - DAILY_COMMIT=master
 
 matrix:
-#  exclude:
-#    # Exclude the default Python 3.5 build
-#    - python: 3.5
   include:
     - os: osx
       language: generic
