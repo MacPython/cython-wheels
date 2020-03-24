@@ -21,9 +21,9 @@ env:
       - DAILY_COMMIT=master
 
 matrix:
-  exclude:
-    # Exclude the default Python 3.5 build
-    - python: 3.5
+#  exclude:
+#    # Exclude the default Python 3.5 build
+#    - python: 3.5
   include:
     - os: osx
       language: generic
