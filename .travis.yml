@@ -42,10 +42,7 @@ matrix:
       language: generic
       env:
         - MB_PYTHON_VERSION=3.5
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.4
+        - MB_PYTHON_OSX_VER=10.6
     - os: linux
       env:
         - MB_PYTHON_VERSION=2.7
@@ -62,13 +59,6 @@ matrix:
         - MB_PYTHON_VERSION=2.7
         - PLAT=i686
         - UNICODE_WIDTH=16
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-        - PLAT=i686
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.5
