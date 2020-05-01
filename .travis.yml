@@ -112,10 +112,11 @@ install:
 script:
     - PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/${MB_PYTHON_VERSION}/bin  install_run $PLAT
 
-after_success:
-    # Upload wheels to Rackspace container
-    - pip install wheelhouse-uploader
-    - python -m wheelhouse_uploader upload --local-folder
-          ${TRAVIS_BUILD_DIR}/wheelhouse/
-          $UPLOAD_ARGS
-          $CONTAINER
+deploy:
+  provider: releases
+  api_key:
+    secure: KvDNzF0BiR2ExM4+Ab0m0xEbuVIvTCKyWZdUBt8zSOH6x+wva2lAuWGX3JJV45tzmo6qTk6kxTk0pm5hmWDeYRNnCl+Gub8PpAsFciBtj8wfLfqBXfJdX/C7LDIAnyyIXcnrsEOGa4yOfTZpmimQSMUUhaPDoSI8IBPypA/mSNo=
+  file: "${TRAVIS_BUILD_DIR}/wheelhouse/*.whl"
+  on:
+    repo: MacPython/cython-wheels
+  skip_cleanup: 'true'
