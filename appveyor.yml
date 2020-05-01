@@ -116,14 +116,14 @@ after_test:
   - dir dist
 
 deploy:
-  - release: $(BUILD_COMMIT)
-  - description: 'Cython $(BUILD_COMMIT)'
-  - provider: GitHub
-  - auth_token:
-      secure: gIuGypw8TomOL2eG8qqZsICAoSZV0pQMK6BOO8HbQc6bPiKgTnf2kdrTKBvRCdCZ
-  - artifact: dist/*.whl
-  - draft: false
-  - prerelease: false
-  - on:
-      #branch: release                 # release from this branch only
-      APPVEYOR_REPO_TAG: true          # deploy on tag push only
+  release: $(BUILD_COMMIT)
+  description: 'Cython $(BUILD_COMMIT)'
+  provider: GitHub
+  auth_token:
+    secure: gIuGypw8TomOL2eG8qqZsICAoSZV0pQMK6BOO8HbQc6bPiKgTnf2kdrTKBvRCdCZ
+  artifact: dist/*.whl
+  draft: false
+  prerelease: false
+  on:
+    #branch: release                 # release from this branch only
+    APPVEYOR_REPO_TAG: true          # deploy on tag push only
