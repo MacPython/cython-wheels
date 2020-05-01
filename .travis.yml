@@ -119,4 +119,5 @@ deploy:
   file: "${TRAVIS_BUILD_DIR}/wheelhouse/*.whl"
   on:
     repo: MacPython/cython-wheels
+    tags: true
   skip_cleanup: 'true'
