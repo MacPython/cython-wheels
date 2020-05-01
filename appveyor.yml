@@ -12,10 +12,6 @@ environment:
     global:
       # Remember to edit .travis.yml too
       BUILD_COMMIT: 620d2b5acc8063835959525e6a9ecc8269e2d57b
-      WHEELHOUSE_UPLOADER_USERNAME: travis-worker
-      WHEELHOUSE_UPLOADER_SECRET:
-        secure:
-            9s0gdDGnNnTt7hvyNpn0/ZzOMGPdwPp2SewFTfGzYk7uI+rdAN9rFq2D1gAP4NQh
 
     matrix:
 
@@ -119,11 +115,15 @@ after_test:
   # If tests are successful, create binary packages for the project.
   - dir dist
 
-on_success:
-  # Upload the generated wheel package to Rackspace
-  # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
-  # disable the ssl checks.
-  - pip install wheelhouse-uploader
-  - python -m wheelhouse_uploader upload
-    --local-folder=dist --no-update-index
-    wheels
+deploy:
+  - release: $(BUILD_COMMIT)
+  - description: 'Cython $(BUILD_COMMIT)'
+  - provider: GitHub
+  - auth_token:
+      secure: gIuGypw8TomOL2eG8qqZsICAoSZV0pQMK6BOO8HbQc6bPiKgTnf2kdrTKBvRCdCZ
+  - artifact: dist/*.whl
+  - draft: false
+  - prerelease: false
+  - on:
+      #branch: release                 # release from this branch only
+      APPVEYOR_REPO_TAG: true          # deploy on tag push only
