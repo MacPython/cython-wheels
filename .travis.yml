@@ -7,7 +7,7 @@ env:
       - REPO_DIR=Cython
       # Remember to edit appveyor.yml too
       # Also see DAILY_COMMIT below
-      - BUILD_COMMIT=620d2b5acc8063835959525e6a9ecc8269e2d57b
+      - BUILD_COMMIT=4625219f9ffff32348122c5d52464df877ce7f17
       - PLAT=x86_64
       - MB_PYTHON_OSX_VER=10.9
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
