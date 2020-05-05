@@ -104,7 +104,7 @@ install:
     # Maybe get and clean and patch source
     - clean_code $REPO_DIR $BUILD_COMMIT
     - PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/${MB_PYTHON_VERSION}/bin  build_wheel $REPO_DIR $PLAT
-    - ls -l ${REPO_DIR}/*.whl
+    - ls -Rl
     # Add Travis build number to wheel name for daily builds
     - if [ "$TRAVIS_BRANCH" == "daily" ]; then
       python add_build_no.py -r -s + $TRAVIS_BUILD_NUMBER $WHEEL_SDIR/*.whl ;
@@ -117,7 +117,7 @@ deploy:
   provider: releases
   api_key:
     secure: KvDNzF0BiR2ExM4+Ab0m0xEbuVIvTCKyWZdUBt8zSOH6x+wva2lAuWGX3JJV45tzmo6qTk6kxTk0pm5hmWDeYRNnCl+Gub8PpAsFciBtj8wfLfqBXfJdX/C7LDIAnyyIXcnrsEOGa4yOfTZpmimQSMUUhaPDoSI8IBPypA/mSNo=
-  file: "${REPO_DIR}/*.whl"
+  file: "${TRAVIS_BUILD_DIR}/${REPO_DIR}/*.whl"
   on:
     repo: MacPython/cython-wheels
     tags: true
