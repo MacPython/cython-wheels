@@ -116,7 +116,7 @@ deploy:
   provider: releases
   api_key:
     secure: KvDNzF0BiR2ExM4+Ab0m0xEbuVIvTCKyWZdUBt8zSOH6x+wva2lAuWGX3JJV45tzmo6qTk6kxTk0pm5hmWDeYRNnCl+Gub8PpAsFciBtj8wfLfqBXfJdX/C7LDIAnyyIXcnrsEOGa4yOfTZpmimQSMUUhaPDoSI8IBPypA/mSNo=
-  file: "${TRAVIS_BUILD_DIR}/wheelhouse/*.whl"
+  file: "${WHEEL_DIR}/*.whl"
   on:
     repo: MacPython/cython-wheels
     tags: true
