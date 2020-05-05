@@ -117,6 +117,7 @@ deploy:
   provider: releases
   api_key:
     secure: KvDNzF0BiR2ExM4+Ab0m0xEbuVIvTCKyWZdUBt8zSOH6x+wva2lAuWGX3JJV45tzmo6qTk6kxTk0pm5hmWDeYRNnCl+Gub8PpAsFciBtj8wfLfqBXfJdX/C7LDIAnyyIXcnrsEOGa4yOfTZpmimQSMUUhaPDoSI8IBPypA/mSNo=
+  file_glob: true
   file: "${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/*.whl"
   skip_cleanup: true
   on:
