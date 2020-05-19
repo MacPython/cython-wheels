@@ -35,6 +35,10 @@ def main():
                 fobj.write(line)
     check_call(['git', 'commit', '-a', '-m',
                 'Trigger build for ' + commit_name])
+    if '.' in commit_name:
+        # assume it's a tag name and tag it for uploading
+        check_call(['git', 'tag', '-a', '-m', commit_name, commit_name])
+        check_call(['git', 'push', '--tags'])
     check_call(['git', 'push'])
 
 
