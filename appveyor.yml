@@ -126,4 +126,4 @@ deploy:
   prerelease: false
   on:
     #branch: release                 # release from this branch only
-    APPVEYOR_REPO_TAG: true          # deploy on tag push only
+    #APPVEYOR_REPO_TAG: true          # deploy on tag push only
