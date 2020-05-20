@@ -124,6 +124,6 @@ deploy:
   artifact: dist/*.whl
   draft: false
   prerelease: false
-  on:
+  #on:
     #branch: release                 # release from this branch only
     #APPVEYOR_REPO_TAG: true          # deploy on tag push only
