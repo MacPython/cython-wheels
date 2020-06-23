@@ -89,7 +89,7 @@ matrix:
         - PLAT=i686
 
 before_install:
-    - if [ "$TRAVIS_BRANCH" == "daily" ]; then
+    - if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then
           CONTAINER="pre-release";
           BUILD_COMMIT=${DAILY_COMMIT:-$BUILD_COMMIT};
       else
@@ -105,13 +105,28 @@ install:
     - clean_code $REPO_DIR $BUILD_COMMIT
     - PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/${MB_PYTHON_VERSION}/bin  build_wheel $REPO_DIR $PLAT
     # Add Travis build number to wheel name for daily builds
-    - if [ "$TRAVIS_BRANCH" == "daily" ]; then
+    - if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then
       python add_build_no.py -r -s + $TRAVIS_BUILD_NUMBER $WHEEL_SDIR/*.whl ;
       fi
     - ls -l $PWD/$WHEEL_SDIR/*.whl
 
 script:
     - PATH=${PATH}:/Library/Frameworks/Python.framework/Versions/${MB_PYTHON_VERSION}/bin  install_run $PLAT
+
+after_success:
+    # trigger an upload to the shared ecosystem
+    # infrastructure at: https://anaconda.org/scipy-wheels-nightly
+    # for cron jobs only (restricted to master branch once
+    # per week)
+    # CYTHON_WHEELS_NIGHTLY is a secret token
+    # used in Travis CI config, originally
+    # generated at anaconda.org for scipy-wheels-nightly
+    - if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then
+          ANACONDA_ORG="scipy-wheels-nightly";
+          pip install git+https://github.com/Anaconda-Server/anaconda-client;
+          anaconda -t ${CYTHON_WHEELS_NIGHTLY} upload --force -u ${ANACONDA_ORG} ${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/*.whl;
+      fi
+
 
 deploy:
   provider: releases
