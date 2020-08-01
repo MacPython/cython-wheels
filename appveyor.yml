@@ -120,7 +120,7 @@ deploy:
   description: 'Cython $(BUILD_COMMIT)'
   provider: GitHub
   auth_token:
-    secure: gIuGypw8TomOL2eG8qqZsICAoSZV0pQMK6BOO8HbQc6bPiKgTnf2kdrTKBvRCdCZ
+    secure: iMriG/86PRGPbCSHYAU0sELyGRRiUVUPxvgamBf9u6ifqb2jCpPkFnLwRqkd0h0g
   artifact: dist/*.whl
   draft: false
   prerelease: false
