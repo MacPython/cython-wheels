@@ -25,6 +25,10 @@ matrix:
     - os: osx
       language: generic
       env:
+        - MB_PYTHON_VERSION=3.9
+    - os: osx
+      language: generic
+      env:
         - MB_PYTHON_VERSION=3.8
     - os: osx
       language: generic
@@ -112,6 +116,20 @@ matrix:
       arch: arm64
       env:
       - MB_PYTHON_VERSION=3.8
+      - PLAT=aarch64
+      - MB_ML_VER=2014
+      - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.9
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.9
+        - PLAT=i686
+    - os: linux
+      arch: arm64
+      env:
+      - MB_PYTHON_VERSION=3.9
       - PLAT=aarch64
       - MB_ML_VER=2014
       - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
