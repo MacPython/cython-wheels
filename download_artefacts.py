@@ -41,7 +41,7 @@ def find_appveyor_files(version, base_package_url=APPVEYOR_PACKAGE_URL, base_job
 
     tag = version
     for build in builds:
-        if build['isTag'] and build['tag'] == tag:
+        if build['isTag'] and build['tag'] == tag and build['status'] != 'queued':
             build_id = build['buildId']
             break
     else:
