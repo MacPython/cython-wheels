@@ -167,5 +167,5 @@ deploy:
   file: "${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/*.whl"
   skip_cleanup: true
   on:
-    repo: MacPython/cython-wheels
+    repo: cython/cython-wheels
     tags: true
