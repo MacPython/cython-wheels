@@ -7,7 +7,7 @@ env:
       - REPO_DIR=Cython
       # Remember to edit appveyor.yml too
       # Also see DAILY_COMMIT below
-      - BUILD_COMMIT=3.0.0a8
+      - BUILD_COMMIT=0.29.24
       - PLAT=x86_64
       - MB_PYTHON_OSX_VER=10.9
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
@@ -167,5 +167,5 @@ deploy:
   file: "${TRAVIS_BUILD_DIR}/${WHEEL_SDIR}/*.whl"
   skip_cleanup: true
   on:
-    repo: cython/cython-wheels
+    repo: MacPython/cython-wheels
     tags: true
